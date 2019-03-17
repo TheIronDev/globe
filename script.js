@@ -50,6 +50,8 @@ class Dot {
   }
   draw() {
     this.project();
+    ctx.globalAlpha = Math.abs(1 - this.z / width);
+
     ctx.beginPath();
     const arc = [
       this.xProjected,
