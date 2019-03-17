@@ -7,6 +7,7 @@ let height = canvas.offsetHeight; // Height of the scene
 let PERSPECTIVE = width * 0.8; // The field of view of our 3D scene
 let PROJECTION_CENTER_X = width / 2; // x center of the canvas
 let PROJECTION_CENTER_Y = height / 2; // y center of the canvas
+let DOT_RADIUS = 5;
 let GLOBE_RADIUS = width / 3;
 
 const resize = () => {
@@ -61,7 +62,7 @@ class Dot {
     const arc = [
       this.xProjected,
       this.yProjected,
-      this.radius * this.scaleProjected,
+      DOT_RADIUS * this.scaleProjected,
       0,
       2 * Math.PI
     ];
@@ -73,7 +74,7 @@ class Dot {
 class Animation {
   constructor() {
     this.dots = [];
-    let i = 200;
+    let i = 800;
     while (i--) this.dots.push(new Dot());
   }
   animate() {
