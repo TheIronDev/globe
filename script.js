@@ -36,6 +36,13 @@ class Dot {
     this.xProjected = 0;
     this.yProjected = 0;
   }
+  move() {
+    const rand = Math.random();
+    if (rand < .15) this.x += 1;
+    else if (rand < .25) this.x -= 1;
+    else if (rand < .35) this.y += 1;
+    else if (rand < .45) this.y -= 1;
+  }
   project() {
     this.scaleProjected = PERSPECTIVE / (PERSPECTIVE + this.z); // distance from user
     this.xProjected = (this.x * this.scaleProjected) + PROJECTION_CENTER_X; // x position on 2d plane
@@ -56,7 +63,27 @@ class Dot {
   }
 }
 
-const dots = [];
-let i = 200;
-while (i--) dots.push(new Dot());
-dots.forEach(dot => dot.draw());
+class Animation {
+  constructor() {
+    this.dots = [];
+    let i = 200;
+    while (i--) this.dots.push(new Dot());
+  }
+  animate() {
+    this.clear();
+    this.dots.forEach(dot => {
+      dot.move();
+      dot.draw();
+    });
+    window.requestAnimationFrame(() => this.animate())
+  }
+  clear() {
+    ctx.clearRect(0, 0, width, height);
+  }
+  start() {
+    this.animate();
+  }
+}
+
+const animation = new Animation();
+animation.start();
