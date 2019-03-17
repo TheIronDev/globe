@@ -73,6 +73,9 @@ class Animation {
   }
   animate() {
     this.clear();
+
+    // Rearrange to render furthest first
+    this.dots = this.dots.sort((dotA, dotB) => (dotA.z > dotB.z ? -1 : 1));
     this.dots.forEach(dot => {
       dot.move();
       dot.draw();
